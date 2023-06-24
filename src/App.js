@@ -7,8 +7,21 @@ import ListUser from './ListUser';
 import LogUser from "./LogUser";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const [isLogged, setIsLogged] = useState(false);
+  useEffect(()=>{
+      const localstorageGetInformation = localStorage.getItem('isLoggedIn')
+
+       if(localstorageGetInformation == '1'){
+         setIsLoggedIn(true)
+         localStorage.setItem('isLoggedIn','1')
+       }
+     },[isLoggedIn])
+
+  const Logout = () => {
+    localStorage.setItem('isLoggedIn','0')
+    setIsLoggedIn(false)
+  }
 
   const navBarr = {
     display: "flex",
@@ -25,11 +38,12 @@ function App() {
 
   return (
     <div>
-      {isLogged && (
+      {isLoggedIn && (
       <BrowserRouter>
         <nav style={navBarr}>
               <Link style={navItem} to="/">List Users</Link>
               <Link style={navItem} to="user/create">Create User</Link>
+              <Link style={navItem} onClick={Logout}>Log Out</Link>
         </nav>
         <div className="Login">
           <Routes>
@@ -38,7 +52,7 @@ function App() {
             <Route path="user/:id/edit" element={<EditUser />} />
           </Routes>
         </div>
-      </BrowserRouter> ) || <LogUser logged={setIsLogged}/> 
+      </BrowserRouter> ) || <LogUser logged={setIsLoggedIn}/> 
       }
     </div>
   );
