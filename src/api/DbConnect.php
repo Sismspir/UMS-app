@@ -4,9 +4,9 @@
 	*/
 	class DbConnect {
 		private $server = 'localhost';
-		private $dbname = 'react_crud';
-		private $user = 'crud-user';
-		private $pass = 'Play16@@12@@';
+		private $dbname = 'your_database';
+		private $user = 'your_user';
+		private $pass = 'your_password';
 
 		public function connect() {
 			try {
